@@ -20,6 +20,10 @@ describe RomanNumeral do
       expect(roman.convert_to_numeral 444).to eq "CDXLIV"
     end
 
+    it "returns DXC when passed 590" do
+      expect(roman.convert_to_numeral 590).to eq "DXC"
+    end
+
     it "returns MLXVI when passed 1066" do
       expect(roman.convert_to_numeral 1066).to eq "MLXVI"
     end
