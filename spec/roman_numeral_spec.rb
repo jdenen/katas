@@ -19,5 +19,9 @@ describe RomanNumeral do
     it "returns MLXVI when passed 1066" do
       expect(roman.convert_to_numeral 1066).to eq "MLXVI"
     end
+
+    it "returns MCMLXXXIX when passed 1989" do
+      expect(roman.convert_to_numeral 1989).to eq "MCMLXXXIX"
+    end
   end
 end
