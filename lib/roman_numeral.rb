@@ -13,11 +13,11 @@ class RomanNumeral
   }
   
   def convert_to_numeral num
-    defined_numbers.each_with_object([]) do |n, numeral|
+    defined_numbers.each_with_object("") do |defined, numeral|
       next if num.zero?
-      quotient, num = num.divmod(n)
-      numeral << NUMERAL_DICTIONARY.key(n) * quotient
-    end.join
+      quotient, num = num.divmod(defined)
+      numeral << NUMERAL_DICTIONARY.key(defined) * quotient
+    end
   end
 
   def defined_numbers
