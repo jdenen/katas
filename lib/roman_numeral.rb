@@ -24,22 +24,20 @@ class RomanNumeral
     end
   end
 
-  def convert_to_arabic numeral
-    arabic = 0
+  def convert_to_arabic numeral, conversion = 0
+    return conversion if numeral.empty?
     
-    NUMERAL_DICTIONARY.keys.select{ |str| str.length == 2 }.each do |key|
-      match = numeral.slice! key
-      arabic += NUMERAL_DICTIONARY[key] if match
+    keys_by_length.reverse.each do |key|
+      conversion += NUMERAL_DICTIONARY[key] if numeral.slice!(key)
     end
-    
-    until numeral.empty?
-      NUMERAL_DICTIONARY.keys.select{ |str| str.length == 1 }.each do |key|
-        match = numeral.slice! key
-        arabic += NUMERAL_DICTIONARY[key] if match
-      end
-    end
-    
-    arabic
+
+    convert_to_arabic numeral, conversion
+  end
+
+  private
+
+  def keys_by_length
+    NUMERAL_DICTIONARY.keys.sort{ |a, b| a.length <=> b.length }
   end
 
   def defined_numbers
