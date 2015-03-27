@@ -1,9 +1,12 @@
 class RomanNumeral
+
+  NUMERAL_DICTIONARY = {
+    "I"   => 1,
+    "III" => 3,
+    "IX"  => 9
+  }
+  
   def convert_to_numeral num
-    if num == 1
-      "I"
-    else
-      "III"
-    end
+    NUMERAL_DICTIONARY.key num
   end
 end

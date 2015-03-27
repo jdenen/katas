@@ -11,5 +11,10 @@ describe RomanNumeral do
       roman = RomanNumeral.new
       expect(roman.convert_to_numeral 3).to eq "III"
     end
+
+    it "returns IX when passed 9" do
+      roman = RomanNumeral.new
+      expect(roman.convert_to_numeral 9).to eq "IX"
+    end
   end
 end
