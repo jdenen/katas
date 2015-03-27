@@ -25,7 +25,7 @@ class RomanNumeral
   end
 
   def convert_to_arabic numeral
-    numeral == "I" ? 1 : 3
+    numeral == "III" ? 3 : NUMERAL_DICTIONARY[numeral]
   end
 
   def defined_numbers
