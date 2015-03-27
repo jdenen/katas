@@ -1,9 +1,9 @@
 require_relative "../lib/roman_numeral"
 
 describe RomanNumeral do
+  let(:roman){ RomanNumeral.new }
+  
   describe "#convert_to_numeral" do
-    let(:roman){ RomanNumeral.new }
-    
     it "returns I when passed 1" do
       expect(roman.convert_to_numeral 1).to eq "I"
     end
@@ -30,6 +30,12 @@ describe RomanNumeral do
 
     it "returns MCMLXXXIX when passed 1989" do
       expect(roman.convert_to_numeral 1989).to eq "MCMLXXXIX"
+    end
+  end
+
+  describe "#convert_to_arabic" do
+    it "returns 1 when passed I" do
+      expect(roman.convert_to_arabic "I").to eq 1
     end
   end
 end

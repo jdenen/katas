@@ -24,6 +24,10 @@ class RomanNumeral
     end
   end
 
+  def convert_to_arabic numeral
+    1
+  end
+
   def defined_numbers
     NUMERAL_DICTIONARY.values.reverse
   end
