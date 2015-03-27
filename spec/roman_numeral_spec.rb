@@ -37,5 +37,9 @@ describe RomanNumeral do
     it "returns 1 when passed I" do
       expect(roman.convert_to_arabic "I").to eq 1
     end
+
+    it "returns 3 when passed III" do
+      expect(roman.convert_to_arabic "III").to eq 3
+    end
   end
 end
