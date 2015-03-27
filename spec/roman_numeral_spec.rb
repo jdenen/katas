@@ -45,5 +45,9 @@ describe RomanNumeral do
     it "returns 9 when passed IX" do
       expect(roman.convert_to_arabic "IX").to eq 9
     end
+
+    it "returns 1066 when passed MLXVI" do
+      expect(roman.convert_to_arabic "MLXVI").to eq 1066
+    end
   end
 end

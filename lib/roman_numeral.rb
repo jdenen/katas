@@ -25,7 +25,21 @@ class RomanNumeral
   end
 
   def convert_to_arabic numeral
-    numeral == "III" ? 3 : NUMERAL_DICTIONARY[numeral]
+    arabic = 0
+    
+    NUMERAL_DICTIONARY.keys.select{ |str| str.length == 2 }.each do |key|
+      match = numeral.slice! key
+      arabic += NUMERAL_DICTIONARY[key] if match
+    end
+    
+    until numeral.empty?
+      NUMERAL_DICTIONARY.keys.select{ |str| str.length == 1 }.each do |key|
+        match = numeral.slice! key
+        arabic += NUMERAL_DICTIONARY[key] if match
+      end
+    end
+    
+    arabic
   end
 
   def defined_numbers
