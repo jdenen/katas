@@ -6,5 +6,10 @@ describe RomanNumeral do
       roman = RomanNumeral.new
       expect(roman.convert_to_numeral 1).to eq "I"
     end
+
+    it "returns III when passed 3" do
+      roman = RomanNumeral.new
+      expect(roman.convert_to_numeral 3).to eq "III"
+    end
   end
 end
