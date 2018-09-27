@@ -45,9 +45,8 @@ defmodule TwelveDays do
     verses(1, 12)
   end
 
-  defp gifts(0), do: []
-  defp gifts(number) do
-    gift = @translation[number] |> elem(1)
-    [gift | gifts(number - 1)]
+  def gifts(number) do
+    1..number
+    |> Enum.reduce([], fn n, acc -> [@translation[n] |> elem(1) | acc] end)
   end
 end
