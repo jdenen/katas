@@ -1,32 +1,17 @@
 defmodule TwelveDays do
-  @gifts %{
-    1  => "a Partridge in a Pear Tree.",
-    2  => "two Turtle Doves, and",
-    3  => "three French Hens,",
-    4  => "four Calling Birds,",
-    5  => "five Gold Rings,",
-    6  => "six Geese-a-Laying,",
-    7  => "seven Swans-a-Swimming,",
-    8  => "eight Maids-a-Milking,",
-    9  => "nine Ladies Dancing,",
-    10 => "ten Lords-a-Leaping,",
-    11 => "eleven Pipers Piping,",
-    12 => "twelve Drummers Drumming,"
-  }
-
-  @ordinals %{
-    1  => "first",
-    2  => "second",
-    3  => "third",
-    4  => "fourth",
-    5  => "fifth",
-    6  => "sixth",
-    7  => "seventh",
-    8  => "eighth",
-    9  => "ninth",
-    10 => "tenth",
-    11 => "eleventh",
-    12 => "twelfth"
+  @translation %{
+    1  => {"first",    "a Partridge in a Pear Tree."},
+    2  => {"second",   "two Turtle Doves, and"},
+    3  => {"third",    "three French Hens,"},
+    4  => {"fourth",   "four Calling Birds,"},
+    5  => {"fifth",    "five Gold Rings,"},
+    6  => {"sixth",    "six Geese-a-Laying,"},
+    7  => {"seventh",  "seven Swans-a-Swimming,"},
+    8  => {"eighth",   "eight Maids-a-Milking,"},
+    9  => {"ninth",    "nine Ladies Dancing,"},
+    10 => {"tenth",    "ten Lords-a-Leaping,"},
+    11 => {"eleventh", "eleven Pipers Piping,"},
+    12 => {"twelfth",  "twelve Drummers Drumming,"}
   }
 
   @doc """
@@ -35,7 +20,9 @@ defmodule TwelveDays do
   """
   @spec verse(number :: integer) :: String.t()
   def verse(number) do
-    ["On the #{@ordinals[number]} day of Christmas my true love gave to me," | gifts(number)]
+    ordinal = @translation[number] |> elem(0)
+
+    ["On the #{ordinal} day of Christmas my true love gave to me," | gifts(number)]
     |> Enum.join(" ")
   end
 
@@ -60,6 +47,7 @@ defmodule TwelveDays do
 
   defp gifts(0), do: []
   defp gifts(number) do
-    [@gifts[number] | gifts(number - 1)]
+    gift = @translation[number] |> elem(1)
+    [gift | gifts(number - 1)]
   end
 end
