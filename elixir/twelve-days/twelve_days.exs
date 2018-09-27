@@ -1,34 +1,41 @@
 defmodule TwelveDays do
-  @gifts [
-    first: "and a Partridge in a Pear Tree.",
-    second: "two Turtle Doves,",
-    third: "three French Hens,",
-    fourth: "four Calling Birds,",
-    fifth: "five Gold Rings,",
-    sixth: "six Geese-a-Laying,",
-    seventh: "seven Swans-a-Swimming,",
-    eighth: "eight Maids-a-Milking,",
-    ninth: "nine Ladies Dancing,",
-    tenth: "ten Lords-a-Leaping,",
-    eleventh: "eleven Pipers Piping,",
-    twelfth: "twelve Drummers Drumming,"
-  ]
+  @gifts %{
+    1  => "a Partridge in a Pear Tree.",
+    2  => "two Turtle Doves, and",
+    3  => "three French Hens,",
+    4  => "four Calling Birds,",
+    5  => "five Gold Rings,",
+    6  => "six Geese-a-Laying,",
+    7  => "seven Swans-a-Swimming,",
+    8  => "eight Maids-a-Milking,",
+    9  => "nine Ladies Dancing,",
+    10 => "ten Lords-a-Leaping,",
+    11 => "eleven Pipers Piping,",
+    12 => "twelve Drummers Drumming,"
+  }
+
+  @ordinals %{
+    1  => "first",
+    2  => "second",
+    3  => "third",
+    4  => "fourth",
+    5  => "fifth",
+    6  => "sixth",
+    7  => "seventh",
+    8  => "eighth",
+    9  => "ninth",
+    10 => "tenth",
+    11 => "eleventh",
+    12 => "twelfth"
+  }
 
   @doc """
   Given a `number`, return the song's verse for that specific day, including
   all gifts for previous days in the same line.
   """
   @spec verse(number :: integer) :: String.t()
-  def verse(1) do
-    "#{intro(1)} #{@gifts[ordinal(1)]}"
-    |> String.replace("and ", "")
-  end
-
   def verse(number) do
-    1..number
-    |> Enum.map(fn n -> @gifts[ordinal(n)] end)
-    |> Enum.reverse
-    |> List.insert_at(0, intro(number))
+    ["On the #{@ordinals[number]} day of Christmas my true love gave to me," | gifts(number)]
     |> Enum.join(" ")
   end
 
@@ -51,14 +58,8 @@ defmodule TwelveDays do
     verses(1, 12)
   end
 
-  defp intro(number) do
-    "On the #{ordinal(number)} day of Christmas my true love gave to me,"
+  defp gifts(0), do: []
+  defp gifts(number) do
+    [@gifts[number] | gifts(number - 1)]
   end
-
-  defp ordinal(number) do
-    @gifts
-    |> Enum.at(number - 1)
-    |> elem(0)
-  end
-
 end
