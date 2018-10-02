@@ -9,27 +9,20 @@ defmodule RunLengthEncoder do
   @spec encode(String.t()) :: String.t()
   def encode(""), do: ""
   def encode(string) do
-    chunker = fn
-      e, [] -> {:cont, [e]}
-      e, [prev | _] = acc when e == prev -> {:cont, [e | acc]}
-      e, acc -> {:cont, Enum.reverse(acc), [e]}
-    end
-
-    afterer = fn
-      [] -> {:cont, []}
-      acc -> {:cont, Enum.reverse(acc), []}
-    end
-
-    counter = fn
-      [c] -> [c]
-      [c | _] = list -> ["#{Enum.count(list)}#{c}"]
-    end
-
     String.codepoints(string)
-    |> Enum.chunk_while([], chunker, afterer)
-    |> Enum.map(counter)
-    |> Enum.join
+    |> Enum.chunk_while([], &chunk/2, &after_chunk/1)
+    |> Enum.map_join(&counter/1)
   end
+
+  defp chunk(elem, []), do: {:cont, [elem]}
+  defp chunk(elem, [prev|_] = acc) when elem == prev, do: {:cont, [elem|acc]}
+  defp chunk(elem, acc), do: {:cont, Enum.reverse(acc), [elem]}
+
+  defp after_chunk([]), do: {:cont, []}
+  defp after_chunk(acc), do: {:cont, Enum.reverse(acc), []}
+
+  defp counter([c]), do: [c]
+  defp counter([c|_] = list), do: ["#{Enum.count(list)}#{c}"]
 
   @spec decode(String.t()) :: String.t()
   def decode(""), do: ""
@@ -41,5 +34,5 @@ defmodule RunLengthEncoder do
   end
 
   defp unfold([c]), do: c
-  defp unfold([n|[c]]), do: String.duplicate(c, String.to_integer(n))
+  defp unfold([n, c]), do: c |> String.duplicate(n |> String.to_integer)
 end
