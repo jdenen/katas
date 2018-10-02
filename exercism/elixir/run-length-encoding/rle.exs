@@ -34,6 +34,12 @@ defmodule RunLengthEncoder do
   @spec decode(String.t()) :: String.t()
   def decode(""), do: ""
   def decode(string) do
-    string
+    ~r/(\d+[A-z\s]|\w|\s)/
+    |> Regex.scan(string)
+    |> Enum.map(fn [x | _] -> String.split(x, ~r/(?!\d)/, trim: true) end)
+    |> Enum.map_join(&unfold/1)
   end
+
+  defp unfold([c]), do: c
+  defp unfold([n|[c]]), do: String.duplicate(c, String.to_integer(n))
 end
